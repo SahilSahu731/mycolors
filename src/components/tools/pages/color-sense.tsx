@@ -11,7 +11,7 @@ export default function ColorSensePage() {
         description="A tiny challenge for your color intuition. No rush, no limits. Just one more round."
       />
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <div className="grid gap-5 rounded-[32px] bg-violet-400/10 p-4 sm:p-7">
+        <div className="grid gap-5 rounded-4xl bg-violet-400/10 p-4 sm:p-7">
           <Game daily={false} />
         </div>
         <aside className="grid gap-4">

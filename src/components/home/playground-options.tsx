@@ -123,7 +123,7 @@ function ToolbarMenu({ label, trigger, items, align = "left", className = "" }: 
           role="menu"
           aria-label={label}
           onKeyDown={handleMenuKeyDown}
-          className={`absolute top-full z-50 mt-3 w-[270px] max-w-[calc(100vw-28px)] rounded-2xl bg-surface p-1.5 text-ink shadow-[0_18px_65px_rgb(0_0_0/0.18)] ${align === "right" ? "right-0" : "left-0"}`}
+          className={`absolute top-full z-50 mt-3 w-67.5 max-w-[calc(100vw-28px)] rounded-2xl bg-surface p-1.5 text-ink shadow-[0_18px_65px_rgb(0_0_0/0.18)] ${align === "right" ? "right-0" : "left-0"}`}
         >
           {items.map((item) => (
             <button

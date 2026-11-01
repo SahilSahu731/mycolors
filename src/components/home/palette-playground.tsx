@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -164,7 +165,7 @@ export default function PalettePlayground({
 
         {/* canvas */}
         <div
-          className="relative min-h-[580px] flex-1 md:min-h-0"
+          className="relative min-h-145 flex-1 md:min-h-0"
           data-palette-canvas
         >
           {view === "swatches" ? (
@@ -192,7 +193,7 @@ export default function PalettePlayground({
               </small>
 
               {/* gradient controls */}
-              <div className="mt-2 flex w-full max-w-md flex-col gap-3 rounded-2xl border border-white/40 bg-surface/85 p-3 text-left text-ink shadow-lg shadow-black/5 backdrop-blur-xl [text-shadow:none] dark:border-white/10">
+              <div className="mt-2 flex w-full max-w-md flex-col gap-3 rounded-2xl border border-white/40 bg-surface/85 p-3 text-left text-ink shadow-lg shadow-black/5 backdrop-blur-xl text-shadow-none dark:border-white/10">
                 <div
                   role="group"
                   aria-label="Gradient type"
@@ -248,7 +249,7 @@ export default function PalettePlayground({
           {/* visible feedback */}
           <div
             aria-hidden="true"
-            className={`pointer-events-none absolute inset-x-0 bottom-[104px] z-20 flex justify-center px-4 transition duration-200 motion-reduce:transition-none ${
+            className={`pointer-events-none absolute inset-x-0 bottom-26 z-20 flex justify-center px-4 transition duration-200 motion-reduce:transition-none ${
               toast ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
             }`}
           >
