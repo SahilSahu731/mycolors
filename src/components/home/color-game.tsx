@@ -317,7 +317,7 @@ export default function ColorGame() {
                 aria-hidden="true"
                 className="transition-transform group-hover:translate-x-1"
               >
-                ↗
+                →
               </span>
             </Link>
           </div>
@@ -381,7 +381,7 @@ export default function ColorGame() {
                     onClick={playAgain}
                     className="mt-7 min-h-12 rounded-full bg-[#F6C85F] px-6 text-xs font-bold text-[#29221A] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_#FFFFFF] motion-reduce:transform-none"
                   >
-                    Play another sprint ↗
+                    Play another sprint →
                   </button>
                 </div>
               ) : (

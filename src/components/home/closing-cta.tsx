@@ -177,7 +177,7 @@ export default function ClosingCTA() {
                 className="inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-white/10 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
                 Explore the tools
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">→</span>
               </a>
             </div>
 

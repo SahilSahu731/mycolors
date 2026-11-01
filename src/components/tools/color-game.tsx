@@ -81,7 +81,7 @@ export default function Game({ daily }: { daily: boolean }) {
           ? "One submission per day on this browser."
           : "Practice as many times as you like."}
       </p>
-      <div className="flex gap-3 md:gap-5 [&>div]:flex [&>div]:min-h-60 [&>div]:flex-1 [&>div]:flex-col [&>div]:justify-between [&>div]:rounded-xl [&>div]:p-5 md:[&>div]:min-h-72 [&_span]:text-xs [&_strong]:text-3xl [&_strong]:font-medium [&_strong]:tracking-tight">
+      <div className="flex gap-3 md:gap-5 [&>div]:flex [&>div]:min-h-60 [&>div]:flex-1 [&>div]:flex-col [&>div]:justify-between [&>div]:rounded-[28px] [&>div]:p-5 md:[&>div]:min-h-96 [&_span]:text-xs [&_strong]:text-3xl md:[&_strong]:text-5xl [&_strong]:font-medium [&_strong]:tracking-[-0.06em]">
         <div style={{ background: target, color: ink(target) }}>
           <span>The target</span>
           <strong>Meet your match.</strong>
@@ -95,7 +95,7 @@ export default function Game({ daily }: { daily: boolean }) {
           </span>
         </div>
       </div>
-      <section className="rounded-xl border border-line bg-surface p-5 md:p-7 [&>button]:mt-7">
+      <section className="rounded-[28px] border border-line bg-surface p-5 md:p-7 [&>button]:mt-7">
         {["Hue", "Saturation", "Lightness"].map((v, i) => (
           <label
             className="mt-6 block text-xs [&>b]:float-right [&>b]:text-muted [&>b]:font-normal [&>input]:mt-4"

@@ -17,15 +17,15 @@ export default function Explore({
   return (
     <>
       <div className="grid gap-6 md:grid-cols-[1fr_1.5fr]">
-        <div className="grid min-h-72 place-items-center rounded-xl border border-line bg-soft">
+        <div className="grid min-h-96 place-items-center rounded-[28px] border border-line bg-soft">
           <div
-            className="grid size-52 place-items-center rounded-full bg-[conic-gradient(#e89393,#efcd91,#dcdf98,#b1d398,#97c8b7,#99bacf,#a9a0d1,#d8a6ca,#e89393)] [&>div]:size-25 [&>div]:rounded-full [&>div]:border-10 [&>div]:border-surface"
+            className="grid size-64 place-items-center rounded-full bg-[conic-gradient(#e89393,#efcd91,#dcdf98,#b1d398,#97c8b7,#99bacf,#a9a0d1,#d8a6ca,#e89393)] [&>div]:size-25 [&>div]:rounded-full [&>div]:border-10 [&>div]:border-surface"
             style={{ transform: `rotate(${h}deg)` }}
           >
             <div style={{ background: base }} />
           </div>
         </div>
-        <section className="rounded-xl border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
+        <section className="rounded-[28px] border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
           <h3>
             {theory
               ? "Color relationships, made tangible."

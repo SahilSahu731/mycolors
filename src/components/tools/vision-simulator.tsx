@@ -65,7 +65,7 @@ export default function Vision({ palette }: { palette: string[] }) {
       <Swatches colors={palette} />
       <h3 className="mt-3 text-sm font-medium">{mode} simulation</h3>
       <Swatches colors={palette.map((c) => simulate(c, mode))} />
-      <section className="rounded-xl border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
+      <section className="rounded-[28px] border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
         <h3>Use more than color to communicate.</h3>
         <p>
           Pair colors with labels, shapes and patterns. These approximate

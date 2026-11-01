@@ -2,9 +2,9 @@
 import Link from "next/link";
 import { usePaletteShortcut } from "@/hooks/use-palette-shortcut";
 import { useState } from "react";
-import { ColorInput, download } from "@/components/ui";
+import { ColorInput, CopyButton, download } from "@/components/ui";
 import { fromHsl, harmony, ink, paletteCSS } from "@/lib/colors";
-import Export from "@/components/tools/shared/export-panel";
+import Export from "./shared/export-panel";
 export default function Palette({
   palette,
   setPalette,
@@ -13,72 +13,120 @@ export default function Palette({
   setPalette: (p: string[]) => void;
 }) {
   const [locked, setLocked] = useState<boolean[]>(Array(5).fill(false));
+  const [mode, setMode] = useState("Analogous");
+  const [previous, setPrevious] = useState<string[] | null>(null);
+  function change(next: string[]) {
+    setPrevious(palette);
+    setPalette(next);
+  }
   function generate() {
-    const c = fromHsl(Math.random() * 360, 40 + Math.random() * 40, 60);
     const next = harmony(
-      c,
-      ["Analogous", "Triadic", "Complementary"][Math.floor(Math.random() * 3)],
+      fromHsl(Math.random() * 360, 40 + Math.random() * 40, 60),
+      mode,
     );
-    setPalette(palette.map((v, i) => (locked[i] ? v : next[i])));
+    change(palette.map((v, i) => (locked[i] ? v : next[i])));
   }
   usePaletteShortcut(generate);
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-4 [&_h3]:text-sm [&_h3]:font-medium">
-        <p className="text-xs leading-7 text-muted">
-          Press space to explore. Lock the colors you love.
-        </p>
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[22px] bg-soft p-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <select
+            aria-label="Palette harmony"
+            value={mode}
+            onChange={(e) => setMode(e.target.value)}
+          >
+            {["Analogous", "Complementary", "Triadic"].map((m) => (
+              <option key={m}>{m}</option>
+            ))}
+          </select>
+          <button
+            disabled={!previous}
+            onClick={() => {
+              if (previous) {
+                setPalette(previous);
+                setPrevious(null);
+              }
+            }}
+            className="min-h-11 rounded-full px-4 text-xs disabled:opacity-35"
+          >
+            ↶ Undo
+          </button>
+          <button
+            onClick={() => setLocked(Array(5).fill(false))}
+            className="min-h-11 rounded-full px-4 text-xs hover:bg-surface"
+          >
+            Unlock all
+          </button>
+        </div>
         <button
-          className="inline-flex min-h-11 items-center justify-center gap-3 rounded-lg border border-ink bg-ink px-5 py-3 text-xs font-medium text-page transition hover:-translate-y-0.5 motion-reduce:transform-none disabled:transform-none"
           onClick={generate}
+          className="min-h-11 rounded-full bg-ink px-6 text-xs font-semibold text-page hover:opacity-80"
         >
           ↻ Generate palette
         </button>
       </div>
-      <div className="grid grid-cols-5 gap-1 md:gap-2 [&_label]:mt-4 [&_label]:min-w-0 [&_input]:min-w-0 [&_input:not([type=color])]:w-full [&_input:not([type=color])]:text-[9px] max-sm:[&_label>div]:flex-col">
-        {palette.map((c, i) => (
-          <div key={i}>
-            <div
-              className="flex h-60 flex-col items-center justify-between rounded-lg px-1 py-5 md:h-80 md:px-4 [&>span]:self-start [&>span]:text-[10px] [&>span]:opacity-50 [&>button]:rounded-lg [&>button]:bg-white/20 [&>button]:p-2 [&>button]:text-[9px] [&>b]:text-[9px] [&>b]:font-medium md:[&>b]:text-sm"
-              style={{ background: c, color: ink(c) }}
-            >
-              <span>0{i + 1}</span>
+      <div className="grid overflow-hidden rounded-[32px] sm:grid-cols-5">
+        {palette.map((color, i) => (
+          <section
+            key={i}
+            className="group relative flex min-h-64 flex-col justify-between gap-5 p-5 sm:min-h-[480px] sm:px-3 lg:min-h-[540px] lg:px-5"
+            style={{ background: color, color: ink(color) }}
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs opacity-55">0{i + 1}</span>
               <button
                 aria-label={`${locked[i] ? "Unlock" : "Lock"} color ${i + 1}`}
+                aria-pressed={locked[i]}
                 onClick={() =>
                   setLocked(locked.map((v, j) => (j === i ? !v : v)))
                 }
+                className="min-h-10 rounded-full bg-white/25 px-3 text-xs hover:bg-white/45"
               >
                 {locked[i] ? "● Locked" : "○ Lock"}
               </button>
-              <b>{c.toUpperCase()}</b>
             </div>
-            <ColorInput
-              label={`Color ${i + 1}`}
-              value={c}
-              onChange={(v) =>
-                setPalette(palette.map((x, j) => (j === i ? v : x)))
-              }
-            />
-          </div>
+            <div className="flex flex-col gap-4">
+              <p className="text-xl font-semibold tracking-tight lg:text-2xl">
+                {color.toUpperCase()}
+              </p>
+              <div className="rounded-2xl bg-surface/95 p-3 text-ink [&_label]:min-w-0 [&_label>div]:flex-wrap [&_input]:max-w-full">
+                <ColorInput
+                  label={`Color ${i + 1}`}
+                  value={color}
+                  onChange={(v) =>
+                    change(palette.map((c, j) => (j === i ? v : c)))
+                  }
+                />
+                <div className="mt-3">
+                  <CopyButton text={color} label="Copy HEX" />
+                </div>
+              </div>
+            </div>
+          </section>
         ))}
       </div>
-      <Export text={paletteCSS(palette)} />
-      <div className="flex flex-wrap items-center gap-3">
-        <button
-          className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-4 py-2.5 text-xs font-medium text-ink transition hover:bg-soft"
-          onClick={() =>
-            download(JSON.stringify(palette, null, 2), "mycolors-palette.json")
-          }
-        >
-          Export JSON ↓
-        </button>
-        <Link
-          href="/tools/theme-studio"
-          className="inline-flex items-center gap-3 bg-transparent py-2 text-xs"
-        >
-          Build a theme with these colors{" "}
-        </Link>
+      <div className="grid gap-5 lg:grid-cols-[1fr_280px]">
+        <Export text={paletteCSS(palette)} />
+        <div className="flex flex-col items-start justify-center gap-5 rounded-[28px] bg-soft p-6">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            Good colors deserve a home.
+          </h2>
+          <button
+            className="min-h-11 rounded-full bg-ink px-5 text-xs text-page"
+            onClick={() =>
+              download(
+                JSON.stringify(palette, null, 2),
+                "mycolors-palette.json",
+              )
+            }
+          >
+            Download JSON ↓
+          </button>
+          <Link href="/tools/theme-studio" className="text-xs font-semibold">
+            Build a theme →
+          </Link>
+        </div>
       </div>
     </>
   );

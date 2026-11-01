@@ -13,12 +13,12 @@ export default function Gradient({ palette }: { palette: string[] }) {
   return (
     <>
       <div
-        className="grid h-72 place-items-center rounded-xl text-center md:h-80 [&>span]:text-3xl [&>span]:tracking-tight [&>span]:text-white md:[&>span]:text-4xl"
+        className="relative grid min-h-[380px] place-items-center overflow-hidden rounded-[32px] p-8 text-center lg:min-h-[620px] [&>span]:max-w-lg [&>span]:text-5xl [&>span]:font-semibold [&>span]:leading-[0.95] [&>span]:tracking-[-0.07em] [&>span]:text-white [&>span]:drop-shadow-lg md:[&>span]:text-7xl"
         style={{ background: css }}
       >
         <span>Let your ideas flow.</span>
       </div>
-      <section className="rounded-xl border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
+      <section className="rounded-[28px] border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
         <div className="flex flex-wrap items-center justify-between gap-4 [&_h3]:text-sm [&_h3]:font-medium">
           <h3>Make it your own</h3>
           <select

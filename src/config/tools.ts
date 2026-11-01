@@ -1,4 +1,4 @@
-// Change titles, descriptions and categories here. Slugs map to workspace routes.
+// Change titles, descriptions and categories here. Each slug has an explicit page in src/app/tools/.
 export const toolsList = [
   {
     slug: "image-to-colors",

@@ -39,7 +39,7 @@ export default function ContrastTool({ fix = false }: { fix?: boolean }) {
   return (
     <>
       {fix && (
-        <section className="rounded-xl border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
+        <section className="rounded-[28px] border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
           <h3>Check explicit CSS color pairs</h3>
           <p className="text-xs leading-7 text-muted">
             Paste rules with solid HEX text and background colors in the same
@@ -102,7 +102,7 @@ export default function ContrastTool({ fix = false }: { fix?: boolean }) {
         </section>
       )}
       <div className="grid gap-6 md:grid-cols-[1fr_1.5fr]">
-        <section className="rounded-xl border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
+        <section className="rounded-[28px] border border-line bg-surface p-5 md:p-7 [&>h3]:mb-4 [&_h3]:text-base [&_h3]:font-medium [&>p]:text-xs [&>p]:leading-7 [&>p]:text-muted [&>label]:mb-4 [&>textarea]:my-5">
           <h3>Choose your pair</h3>
           <ColorInput label="Text color" value={fg} onChange={setFg} />
           <ColorInput label="Background color" value={bg} onChange={setBg} />
@@ -117,7 +117,7 @@ export default function ContrastTool({ fix = false }: { fix?: boolean }) {
           </button>
         </section>
         <div
-          className="flex min-h-72 flex-col items-center justify-center rounded-xl border border-line p-7 text-center [&>span]:text-[9px] [&>span]:tracking-widest [&>strong]:text-8xl [&>strong]:font-medium [&>strong]:tracking-tighter [&>h3]:text-base [&>p]:mt-3 [&>p]:text-xs"
+          className="flex min-h-72 flex-col items-center justify-center rounded-[28px] border border-line p-7 text-center [&>span]:text-[9px] [&>span]:tracking-widest [&>strong]:text-8xl [&>strong]:font-medium [&>strong]:tracking-tighter [&>h3]:text-base [&>p]:mt-3 [&>p]:text-xs"
           style={{ background: bg, color: fg }}
         >
           <span>THE QUICK BROWN FOX</span>
@@ -126,7 +126,7 @@ export default function ContrastTool({ fix = false }: { fix?: boolean }) {
           <p>This is how your normal body text will look.</p>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-6 rounded-xl border border-line bg-surface p-6 md:grid-cols-4 [&>div]:flex [&>div]:flex-col [&>div]:gap-3 [&_span]:text-[10px] [&_span]:text-muted [&_strong]:text-4xl [&_strong]:font-medium [&_small]:text-xl [&_b]:text-sm">
+      <div className="grid grid-cols-2 gap-6 rounded-[28px] border border-line bg-surface p-6 md:grid-cols-4 [&>div]:flex [&>div]:flex-col [&>div]:gap-3 [&_span]:text-[10px] [&_span]:text-muted [&_strong]:text-4xl [&_strong]:font-medium [&_small]:text-xl [&_b]:text-sm">
         <div>
           <span>CONTRAST RATIO</span>
           <strong>
@@ -154,7 +154,7 @@ export default function ContrastTool({ fix = false }: { fix?: boolean }) {
         ))}
       </div>
       {ratio < 4.5 && (
-        <div className="flex flex-wrap items-center justify-between gap-5 rounded-xl bg-soft p-5 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-5 rounded-[28px] bg-soft p-5 text-xs">
           <span>
             Make text readable with <b>{fixed}</b> (
             {contrast(fixed, bg).toFixed(2)}:1)

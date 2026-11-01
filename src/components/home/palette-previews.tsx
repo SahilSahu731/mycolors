@@ -88,7 +88,7 @@ function WebsiteScene({ colors, dark }: { colors: string[]; dark: boolean }) {
           className="rounded-full px-5 py-3 text-xs font-bold"
           style={{ backgroundColor: colors[4], color: ink(colors[4]) }}
         >
-          Explore ↗
+          Explore →
         </span>
       </div>
 
@@ -121,7 +121,7 @@ function WebsiteScene({ colors, dark }: { colors: string[]; dark: boolean }) {
             className="mt-8 inline-flex items-center gap-4 rounded-full px-6 py-3.5 text-xs font-bold"
             style={{ backgroundColor: colors[1], color: ink(colors[1]) }}
           >
-            Discover more <span>↗</span>
+            Discover more <span>→</span>
           </div>
         </div>
 
@@ -549,7 +549,7 @@ export default function PalettePreviews({
               onClick={() => setPosterOutline((value) => !value)}
               className="rounded-full bg-black/40 px-5 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-colors hover:bg-black/60 focus-visible:outline-none"
             >
-              Switch typography ↗
+              Switch typography →
             </button>
           )}
           {scene === "website" && (
@@ -558,7 +558,7 @@ export default function PalettePreviews({
               onClick={() => setWebsiteDark((value) => !value)}
               className="rounded-full bg-black/40 px-5 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-colors hover:bg-black/60 focus-visible:outline-none"
             >
-              Switch to {websiteDark ? "light" : "dark"} ↗
+              Switch to {websiteDark ? "light" : "dark"} →
             </button>
           )}
         </div>

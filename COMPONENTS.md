@@ -24,7 +24,7 @@ All component styling uses Tailwind utility classes directly in JSX. Change spac
 ## Defaults and shared behavior
 
 - **Starting palette and color names:** `src/config/site.ts`. Keep both arrays at five items.
-- **Tool names, descriptions and categories:** `src/config/tools.ts`. Changing a slug also requires updating its mapping in `workspace.tsx`.
+- **Tool names, descriptions and categories:** `src/config/tools.ts`. Changing a slug also requires renaming its explicit folder in `src/app/tools/` and updating links.
 - **Scroll-driven playground expansion:** `src/hooks/use-scroll-expansion.ts`. The page uses normal scrolling and supports reduced motion.
 - **Palette generation, locks, undo, saving and the spacebar shortcut:** `src/hooks/use-palette-playground.ts`.
 - **Color calculations and accessibility logic:** `src/lib/colors.ts`.
@@ -49,7 +49,11 @@ The homepage owns one shared palette through its hook. The hero, previews and to
 
 ## Tool workspaces
 
-`src/components/workspace.tsx` selects the tool, restores the saved palette, and renders the shared page shell. Each tool implementation is separate:
+Each of the 12 tools has its own `src/app/tools/<tool-name>/page.tsx` with metadata, and its own layout in `src/components/tools/pages/<tool-name>.tsx`. There is no dynamic `[slug]` route or tool dispatcher. Edit that layout to change one page independently.
+
+`src/hooks/use-tool-palette.ts` restores and saves palette data. Shared heading, artwork, color control and note components live in `src/components/tools/shared/page-parts.tsx`. The homepage and tool pages share `tool-artwork.tsx`.
+
+Interactive tool implementations:
 
 | Tool | File in `src/components/tools/` |
 | --- | --- |
@@ -59,7 +63,8 @@ The homepage owns one shared palette through its hook. The hero, previews and to
 | Image to Colors | `image-to-colors.tsx` |
 | HueMatch | `hue-match.tsx` |
 | Contrast Checker / ColorFix | `contrast-checker.tsx` (`fix` enables CSS analysis) |
-| Color Explorer / Color Theory | `color-explorer.tsx` (`theory` selects explanatory copy) |
+| Color Explorer | `color-explorer.tsx` |
+| Color Theory | `color-theory.tsx` — keyboard-accessible wheel, hue slider and harmony lessons |
 | Vision Simulator | `vision-simulator.tsx` |
 | ColorSense / Daily Color | `color-game.tsx` (`daily` selects the daily challenge) |
 
