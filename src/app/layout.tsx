@@ -29,7 +29,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={inter.variable}
+      className={`${inter.variable} [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
       suppressHydrationWarning
     >
       <body>

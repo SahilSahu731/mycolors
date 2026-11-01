@@ -376,12 +376,12 @@ export default function PalettePreviews({
   return (
     <section
       aria-labelledby="reactor-title"
-      className="relative left-1/2 w-[calc(100dvw-24px)] -translate-x-1/2 py-16 sm:w-[calc(100dvw-48px)] md:py-24 lg:w-[calc(100dvw-80px)]"
+      className="relative left-1/2 w-[calc(100dvw-24px)] -translate-x-1/2 py-16 sm:w-[calc(100dvw-48px)] md:py-12 lg:w-[calc(100dvw-80px)]"
     >
       {/* Section introduction */}
       <div className="mb-8 flex flex-col justify-between gap-5 px-1 md:mb-10 md:flex-row md:items-end">
         <div>
-          <div className="mb-4 flex items-center gap-2">
+          <div className="mb-4 flex items-center gap-">
             {colors.map((color, index) => (
               <span
                 key={index}
@@ -389,8 +389,8 @@ export default function PalettePreviews({
                 style={{ backgroundColor: color }}
               />
             ))}
-            <span className="ml-2 text-[10px] font-bold uppercase tracking-[0.22em] text-muted">
-              The Color Reactor / Interactive experiment
+            <span className="ml-2 text-muted">
+              The Color Reactor
             </span>
           </div>
           <h2
