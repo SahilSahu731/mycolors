@@ -41,7 +41,7 @@ export default function Hero({
 
   return (
     <section
-      className="relative isolate h-[calc(100svh-80px)] min-h-155 w-full overflow-hidden border-b border-line"
+      className="relative isolate h-[calc(100svh-80px)] min-h-155 w-full overflow-hidden"
       aria-label="Full-screen color playground"
     >
       <div className="absolute inset-0 grid grid-cols-2">
@@ -52,7 +52,7 @@ export default function Hero({
       {/* seam between warm and cool, tinted by the live palette */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-1/2 z-[5] w-0.5 -translate-x-1/2 opacity-70 transition-[background] duration-700"
+        className="pointer-events-none absolute inset-y-0 left-1/2 z-5 w-0.5 -translate-x-1/2 opacity-70 transition-[background] duration-700"
         style={{
           backgroundImage: `linear-gradient(to bottom, transparent, ${palette[0]}, ${palette[4]}, transparent)`,
         }}

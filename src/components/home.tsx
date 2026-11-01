@@ -16,10 +16,10 @@ export default function Home() {
     <main id="main" className="overflow-x-clip">
       <Hero palette={playground.palette} onPick={playground.change} />
       <PalettePlayground controller={playground} />
-      <TrustNote />
       <PalettePreviews palette={playground.palette} onSave={playground.save} />
       <ToolDirectory palette={playground.palette} onSave={playground.save} />
       <ColorGame />
+      <TrustNote />
       <ClosingCTA />
     </main>
   );

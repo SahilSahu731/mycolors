@@ -106,7 +106,7 @@ export default function PalettePlayground({
       <section
         id="playground"
         ref={panelRef}
-        className="sticky top-0 z-10 mx-auto flex h-[max(620px,calc(470px+var(--expand)*(100svh-470px)))] w-[calc(100%-(1-var(--expand))*var(--panel-gutter))] flex-col overflow-hidden rounded-[calc(16px*(1-var(--expand)))] border border-line bg-surface shadow-lg shadow-black/5 max-sm:relative max-sm:h-auto max-sm:min-h-svh [@media(max-height:650px)]:relative [@media(max-height:650px)]:h-auto [&:fullscreen]:h-dvh [&:fullscreen]:w-full [&:fullscreen]:overflow-auto [&:fullscreen]:rounded-none [&:fullscreen]:[--expand:1]"
+        className="sticky top-0 z-10 mx-auto flex h-[max(620px,calc(470px+var(--expand)*(100svh-470px)))] w-[calc(100%-(1-var(--expand))*var(--panel-gutter))] flex-col overflow-hidden rounded-[calc(16px*(1-var(--expand)))] bg-surface shadow-lg shadow-black/5 max-sm:relative max-sm:h-auto max-sm:min-h-svh [@media(max-height:650px)]:relative [@media(max-height:650px)]:h-auto [&:fullscreen]:h-dvh [&:fullscreen]:w-full [&:fullscreen]:overflow-auto [&:fullscreen]:rounded-none [&:fullscreen]:[--expand:1]"
         aria-label="Interactive palette playground"
       >
         {/* top bar */}
