@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -35,13 +34,7 @@ const ACCEPTED_TYPES = [
   "image/avif",
 ];
 
-const BRAND_COLORS = [
-  "#FF795B",
-  "#F6C85F",
-  "#D7E7A9",
-  "#9AAAF0",
-  "#7963CF",
-];
+const BRAND_COLORS = ["#FF795B", "#F6C85F", "#D7E7A9", "#9AAAF0", "#7963CF"];
 
 function toOklab([r, g, b]: RGB): RGB {
   const linear = (value: number) => {
@@ -65,17 +58,10 @@ function toOklab([r, g, b]: RGB): RGB {
 }
 
 function distance(a: RGB, b: RGB) {
-  return Math.hypot(
-    a[0] - b[0],
-    a[1] - b[1],
-    a[2] - b[2],
-  );
+  return Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
 }
 
-function extractPalette(
-  canvas: HTMLCanvasElement,
-  mode: Mode,
-): string[] {
+function extractPalette(canvas: HTMLCanvasElement, mode: Mode): string[] {
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
   if (!ctx || !canvas.width || !canvas.height) return [];
@@ -83,10 +69,7 @@ function extractPalette(
   const { width, height } = canvas;
   const pixels = ctx.getImageData(0, 0, width, height).data;
 
-  const stride = Math.max(
-    1,
-    Math.floor(Math.sqrt((width * height) / 18000)),
-  );
+  const stride = Math.max(1, Math.floor(Math.sqrt((width * height) / 18000)));
 
   const buckets = new Map<number, { count: number; sum: RGB }>();
 
@@ -101,10 +84,7 @@ function extractPalette(
       const g = Math.round(pixels[i + 1] * alpha + 255 * (1 - alpha));
       const b = Math.round(pixels[i + 2] * alpha + 255 * (1 - alpha));
 
-      const key =
-        ((r >> 4) << 8) |
-        ((g >> 4) << 4) |
-        (b >> 4);
+      const key = ((r >> 4) << 8) | ((g >> 4) << 4) | (b >> 4);
 
       const bucket = buckets.get(key);
 
@@ -123,9 +103,7 @@ function extractPalette(
   }
 
   const candidates: Candidate[] = [...buckets.values()].map((bucket) => {
-    const values = bucket.sum.map((n) =>
-      Math.round(n / bucket.count),
-    ) as RGB;
+    const values = bucket.sum.map((n) => Math.round(n / bucket.count)) as RGB;
 
     const max = Math.max(...values);
     const min = Math.min(...values);
@@ -140,9 +118,7 @@ function extractPalette(
 
   const score = (candidate: Candidate) =>
     candidate.count *
-    (mode === "vibrant"
-      ? 0.3 + candidate.saturation * 2.5
-      : 1);
+    (mode === "vibrant" ? 0.3 + candidate.saturation * 2.5 : 1);
 
   candidates.sort((a, b) => score(b) - score(a));
 
@@ -161,27 +137,19 @@ function extractPalette(
 
         const separation = selected.length
           ? Math.min(
-              ...selected.map((item) =>
-                distance(item.lab, candidate.lab),
-              ),
+              ...selected.map((item) => distance(item.lab, candidate.lab)),
             )
           : 1;
 
         if (separation < threshold) continue;
 
-        const diversity = selected.length
-          ? Math.min(1, separation / 0.25)
-          : 1;
+        const diversity = selected.length ? Math.min(1, separation / 0.25) : 1;
 
         const vibrance =
-          mode === "vibrant"
-            ? 0.4 + candidate.saturation * 1.8
-            : 1;
+          mode === "vibrant" ? 0.4 + candidate.saturation * 1.8 : 1;
 
         const currentScore =
-          Math.log1p(candidate.count) *
-          vibrance *
-          (0.55 + diversity);
+          Math.log1p(candidate.count) * vibrance * (0.55 + diversity);
 
         if (currentScore > bestScore) {
           best = candidate;
@@ -202,7 +170,10 @@ function extractPalette(
 
 function UploadIllustration() {
   return (
-    <span aria-hidden="true" className="relative mb-9 block h-40 w-56 shrink-0 transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-2 sm:h-48 sm:w-68 motion-reduce:transition-none">
+    <span
+      aria-hidden="true"
+      className="relative mb-9 block h-40 w-56 shrink-0 transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-2 sm:h-48 sm:w-68 motion-reduce:transition-none"
+    >
       <span className="absolute left-[7%] top-[8%] h-[81%] w-[66%] -rotate-12 overflow-hidden rounded-[25px] bg-[#9AAAF0] shadow-[0_18px_35px_rgb(0_0_0/0.13)]">
         <svg viewBox="0 0 120 120" className="h-full w-full">
           <rect width="120" height="120" fill="#D7E7A9" />
@@ -214,7 +185,11 @@ function UploadIllustration() {
 
       <span className="absolute bottom-[4%] right-[2%] flex h-[71%] w-[40%] rotate-12 items-center justify-center gap-1 rounded-[20px] bg-white px-2 shadow-[0_18px_35px_rgb(0_0_0/0.15)]">
         {BRAND_COLORS.map((color) => (
-          <span key={color} className="h-[66%] min-w-0 flex-1 rounded-full" style={{ backgroundColor: color }} />
+          <span
+            key={color}
+            className="h-[66%] min-w-0 flex-1 rounded-full"
+            style={{ backgroundColor: color }}
+          />
         ))}
       </span>
 
@@ -259,6 +234,7 @@ export default function Extractor({
 
   useEffect(() => {
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       requestRef.current++;
 
       if (imageUrlRef.current) {
@@ -351,7 +327,9 @@ export default function Extractor({
       if (!width || !height || width * height > MAX_PIXELS) {
         releaseURL();
         setLoading(false);
-        setError("This image is too large to process. Try a smaller resolution.");
+        setError(
+          "This image is too large to process. Try a smaller resolution.",
+        );
         return;
       }
 
@@ -441,10 +419,7 @@ export default function Extractor({
   function onDragLeave(event: DragEvent<HTMLButtonElement>) {
     event.preventDefault();
 
-    dragDepthRef.current = Math.max(
-      0,
-      dragDepthRef.current - 1,
-    );
+    dragDepthRef.current = Math.max(0, dragDepthRef.current - 1);
 
     if (dragDepthRef.current === 0) {
       setDragging(false);
@@ -500,9 +475,7 @@ export default function Extractor({
 
       setSample(color);
       setColors((current) =>
-        current.map((item, index) =>
-          index === selected ? color : item,
-        ),
+        current.map((item, index) => (index === selected ? color : item)),
       );
       setApplied(false);
 
@@ -630,7 +603,11 @@ export default function Extractor({
         <div className="flex items-center gap-2.5">
           <span className="flex items-center gap-">
             {BRAND_COLORS.map((color) => (
-              <span key={color} className="size-2 rounded-full" style={{ backgroundColor: color }} />
+              <span
+                key={color}
+                className="size-2 rounded-full"
+                style={{ backgroundColor: color }}
+              />
             ))}
           </span>
 
@@ -670,11 +647,20 @@ export default function Extractor({
           className={`group relative border border-dashed border-muted isolate flex min-h-110 w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-[30px] px-5 py-12 text-center transition-colors duration-300 sm:min-h-132.5 sm:px-8 ${dragging ? "bg-[#E7DFFC] dark:bg-[#383049]" : "bg-soft/75 hover:bg-soft"} focus-visible:outline-none focus-visible:bg-[#E7DFFC] dark:focus-visible:bg-[#383049]`}
         >
           {/* Dotted background */}
-          <span aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,currentColor_1px,transparent_1.5px)] bg-size-[22px_22px] text-black/5 dark:text-white/6" />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,currentColor_1px,transparent_1.5px)] bg-size-[22px_22px] text-black/5 dark:text-white/6"
+          />
 
           {/* Ambient color */}
-          <span aria-hidden="true" className="pointer-events-none absolute -left-28 -top-32 -z-10 size-80 rounded-full bg-[#FF795B]/10 blur-3xl" />
-          <span aria-hidden="true" className="pointer-events-none absolute -bottom-36 -right-28 -z-10 size-80 rounded-full bg-[#7963CF]/10 blur-3xl" />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-28 -top-32 -z-10 size-80 rounded-full bg-[#FF795B]/10 blur-3xl"
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-36 -right-28 -z-10 size-80 rounded-full bg-[#7963CF]/10 blur-3xl"
+          />
 
           {/* Eyebrow */}
           <span className="mb-7 inline-flex items-center gap-2.5 rounded-full bg-page/80 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-ink">
@@ -714,7 +700,6 @@ export default function Extractor({
               : dragging
                 ? "Drop image here"
                 : "Choose an image"}
-
           </span>
 
           {/* Format details */}
@@ -727,19 +712,35 @@ export default function Extractor({
           </span>
 
           {/* Color ribbon */}
-          <span aria-hidden="true" className="absolute inset-x-0 bottom-0 flex h-1.5 overflow-hidden">
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 flex h-1.5 overflow-hidden"
+          >
             {BRAND_COLORS.map((color) => (
-              <span key={color} className="flex-1" style={{ backgroundColor: color }} />
+              <span
+                key={color}
+                className="flex-1"
+                style={{ backgroundColor: color }}
+              />
             ))}
           </span>
         </button>
       )}
 
       {/* Results: image left, editable palette right */}
-      <div className={ready ? "grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)]" : "hidden"}>
+      <div
+        className={
+          ready
+            ? "grid gap-4 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)]"
+            : "hidden"
+        }
+      >
         {/* Image canvas */}
         <div className="relative isolate flex min-w-0 flex-col overflow-hidden rounded-[28px] bg-soft/75 p-4 sm:p-6">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,currentColor_1px,transparent_1.5px)] bg-size-[22px_22px] text-black/[0.04] dark:text-white/[0.045]" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,currentColor_1px,transparent_1.5px)] bg-size-[22px_22px] text-black/4 dark:text-white/4.5"
+          />
 
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
@@ -747,7 +748,10 @@ export default function Extractor({
                 The color canvas
               </p>
 
-              <p className="mt-1 max-w-[250px] truncate text-sm font-semibold text-ink" title={filename}>
+              <p
+                className="mt-1 max-w-62.5 truncate text-sm font-semibold text-ink"
+                title={filename}
+              >
                 {filename}
               </p>
             </div>
@@ -757,7 +761,7 @@ export default function Extractor({
             </span>
           </div>
 
-          <div className="flex min-h-[310px] flex-1 items-center justify-center py-6 sm:min-h-[470px]">
+          <div className="flex min-h-77.5 flex-1 items-center justify-center py-6 sm:min-h-117.5">
             <div className="relative inline-block max-w-full">
               <canvas
                 ref={canvasRef}
@@ -766,7 +770,7 @@ export default function Extractor({
                 aria-label={`Image color picker. Editing color ${selected + 1}. Use arrow keys to move the sample point and Enter to sample.`}
                 onClick={handleCanvasClick}
                 onKeyDown={handleCanvasKey}
-                className="block max-h-[540px] max-w-full cursor-crosshair rounded-[20px] bg-white object-contain shadow-[0_18px_50px_rgb(0_0_0/0.12)] outline-none focus-visible:shadow-[0_18px_50px_rgb(0_0_0/0.22)]"
+                className="block max-h-135 max-w-full cursor-crosshair rounded-[20px] bg-white object-contain shadow-[0_18px_50px_rgb(0_0_0/0.12)] outline-none focus-visible:shadow-[0_18px_50px_rgb(0_0_0/0.22)]"
               />
 
               {/* Pixel sample marker */}
@@ -779,7 +783,13 @@ export default function Extractor({
                     top: `${point.y * 100}%`,
                   }}
                 >
-                  <span className="size-4 rounded-full" style={{ backgroundColor: sample || colors[selected] || BRAND_COLORS[0] }} />
+                  <span
+                    className="size-4 rounded-full"
+                    style={{
+                      backgroundColor:
+                        sample || colors[selected] || BRAND_COLORS[0],
+                    }}
+                  />
                 </div>
               )}
             </div>
@@ -796,7 +806,10 @@ export default function Extractor({
                 onClick={() => copy(sample, `${sample} copied.`)}
                 className="inline-flex min-h-9 items-center gap-2 rounded-full bg-page px-3 font-mono text-[11px] font-semibold text-ink transition-colors hover:bg-ink/10 focus-visible:outline-none focus-visible:bg-ink/15"
               >
-                <span className="size-3 rounded-full" style={{ backgroundColor: sample }} />
+                <span
+                  className="size-3 rounded-full"
+                  style={{ backgroundColor: sample }}
+                />
                 {sample}
                 <Icon name="copy" size={13} />
               </button>
@@ -823,7 +836,11 @@ export default function Extractor({
           </div>
 
           {/* Extraction modes */}
-          <div role="group" aria-label="Extraction style" className="mt-6 grid grid-cols-2 gap-1 rounded-full bg-page/70 p-1">
+          <div
+            role="group"
+            aria-label="Extraction style"
+            className="mt-6 grid grid-cols-2 gap-1 rounded-full bg-page/70 p-1"
+          >
             {(["balanced", "vibrant"] as const).map((value) => (
               <button
                 key={value}
@@ -846,14 +863,25 @@ export default function Extractor({
           {/* Full palette strip */}
           <div className="mt-6 flex h-17 overflow-hidden rounded-2xl bg-page">
             {colors.map((color, index) => (
-              <span key={index} className="flex-1 transition-colors duration-300" style={{ backgroundColor: color }} />
+              <span
+                key={index}
+                className="flex-1 transition-colors duration-300"
+                style={{ backgroundColor: color }}
+              />
             ))}
           </div>
 
           {/* Editable individual colors */}
-          <div role="group" aria-label="Select a palette color to edit" className="mt-5 space-y-1.5">
+          <div
+            role="group"
+            aria-label="Select a palette color to edit"
+            className="mt-5 space-y-1.5"
+          >
             {colors.map((color, index) => (
-              <div key={index} className={`flex items-center gap-2 rounded-xl p-1.5 transition-colors ${selected === index ? "bg-page" : "hover:bg-page/60"}`}>
+              <div
+                key={index}
+                className={`flex items-center gap-2 rounded-xl p-1.5 transition-colors ${selected === index ? "bg-page" : "hover:bg-page/60"}`}
+              >
                 <button
                   type="button"
                   aria-pressed={selected === index}
@@ -861,7 +889,10 @@ export default function Extractor({
                   onClick={() => setSelected(index)}
                   className="flex min-h-12 min-w-0 flex-1 items-center gap-3 rounded-lg text-left focus-visible:outline-none focus-visible:bg-ink/5"
                 >
-                  <span className="grid size-11 shrink-0 place-items-center rounded-lg" style={{ backgroundColor: color, color: ink(color) }}>
+                  <span
+                    className="grid size-11 shrink-0 place-items-center rounded-lg"
+                    style={{ backgroundColor: color, color: ink(color) }}
+                  >
                     {selected === index && (
                       <span className="text-lg font-semibold">+</span>
                     )}
@@ -947,13 +978,20 @@ export default function Extractor({
 
       {/* Error */}
       {error && (
-        <p role="alert" className="rounded-xl bg-orange-500/10 px-4 py-3 text-sm text-orange-700 dark:text-orange-300">
+        <p
+          role="alert"
+          className="rounded-xl bg-orange-500/10 px-4 py-3 text-sm text-orange-700 dark:text-orange-300"
+        >
           {error}
         </p>
       )}
 
       {/* Small toast */}
-      <div aria-live="polite" aria-atomic="true" className="pointer-events-none fixed inset-x-0 bottom-5 z-50 flex justify-center px-4">
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        className="pointer-events-none fixed inset-x-0 bottom-5 z-50 flex justify-center px-4"
+      >
         {notice && (
           <span className="rounded-full bg-ink px-5 py-3 text-xs font-semibold text-page shadow-xl">
             {notice}
