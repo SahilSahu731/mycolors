@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { toolsList } from '@/lib/colors';
+import { toolsList } from '@/config/tools';
 import Workspace from '@/components/workspace';
 export function generateStaticParams() { return toolsList.map(t => ({ slug: t.slug })); }
 export async function generateMetadata({ params }: {

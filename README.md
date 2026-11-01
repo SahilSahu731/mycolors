@@ -1,6 +1,6 @@
 # myColors
 
-A browser-local color toolkit built with Next.js 16, React 19, TypeScript and locally bundled Inter. Responsive layouts, persistent light/dark themes, and twelve tools with dedicated URLs.
+A browser-local color toolkit built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, Matter.js physics and locally bundled Inter. Responsive layouts, persistent light/dark themes, and twelve tools with dedicated URLs.
 
 ## Run
 
@@ -37,3 +37,9 @@ npm run build
 ```
 
 The color-engine tests cover known contrast ratios, input normalization, HSL round trips and accessibility corrections across multiple hues and backgrounds. Font licensing is in `src/app/fonts/LICENSE.txt`.
+
+## Customize the website
+
+See [COMPONENTS.md](./COMPONENTS.md) for a section-by-section guide to components, styles, branding, palette settings, and tool implementations. The landing-page composition is in `src/components/home.tsx`.
+
+The hero has two independent gravity containers. Shapes fall and collide, support drag/release and keyboard bounce, and include toss/pause controls. Physics tests cover desktop/mobile container bounds and release behavior.
